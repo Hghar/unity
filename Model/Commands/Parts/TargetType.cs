@@ -1,0 +1,39 @@
+﻿namespace Model.Commands.Parts
+{
+    public enum TargetType
+    {
+        Self,
+        AllAllies,
+        RandomAlly,
+        AllyGladiators, 
+        AllyTemplars, 
+        AllyRangers, 
+        AllyAssassins,
+        AllySpiritmasters, 
+        AllySorcerers, 
+        AllyClerics, 
+        AllyChanters,
+        NearestAlly,
+        MostWoundedAlly,
+        MostHealthiestAlly,
+        MostMightyAlly,
+        WeakestAlly,
+        CurrentTarget,
+        AllEnemies,
+        RandomEnemy,
+        EnemyGladiators,
+        EnemyTemplars,
+        EnemyRangers,
+        EnemyAssassins,
+        EnemySpiritmasters,
+        EnemySorcerers,
+        EnemyClerics,
+        EnemyChanters,
+        NearestEnemy,
+        MostWoundedEnemy,
+        MostHealthiestEnemy,
+        MostMightyEnemy,
+        WeakestEnemy,
+        None
+    }
+}

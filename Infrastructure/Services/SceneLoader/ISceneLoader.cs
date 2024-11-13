@@ -1,0 +1,46 @@
+using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+namespace Infrastructure.Services.SceneLoader
+{
+    public class SceneLoader
+    {
+        private readonly ICoroutineRunner _coroutineRunner;
+
+        public SceneLoader(ICoroutineRunner coroutineRunner) => 
+                _coroutineRunner = coroutineRunner;
+
+        public void Load(string name, Action onLoaded = null) =>
+                _coroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
+
+        private IEnumerator LoadScene(string nextScene, Action onLoaded = null)
+        {
+            if (SceneManager.GetActiveScene().name == nextScene)
+            {
+                onLoaded?.Invoke();
+                yield break;
+            }
+      
+            AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene);
+
+            while (!waitNextScene.isDone)
+                yield return null;
+      
+            onLoaded?.Invoke();
+        }
+    }
+    public interface ICoroutineRunner
+    {
+        Coroutine StartCoroutine(IEnumerator coroutine);
+        void StopAllCoroutines();
+    }
+
+    public static class Path
+    {
+        public const string GameBootstraper = "Infrastructure/GameBootstraper";
+        public const string CurtainPath = "Infrastructure/LoadingCurtain";
+        public static string CoroutineRunner = "Infrastructure/CoroutineRunner";
+    }
+}
